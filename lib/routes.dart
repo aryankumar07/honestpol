@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:honestpol/common_widgets/bottom_bar.dart';
 import 'package:honestpol/features/auth/screen/admin_screen.dart';
 import 'package:honestpol/features/onborading/screen/onborad_screen.dart';
+import 'package:honestpol/features/profile/screen/profile_settings.dart';
 
 Route<dynamic> GenerateRoute(RouteSettings routesettings){
   switch(routesettings.name){
@@ -11,16 +12,16 @@ Route<dynamic> GenerateRoute(RouteSettings routesettings){
       settings: routesettings,
       builder: (_)=>AdminScreen());
 
-    case BottomBar.routeName :
-    return MaterialPageRoute(
-      settings: routesettings,
-      builder: (_)=>BottomBar());
     
     case OnboradScreen.rouuteName:
     return MaterialPageRoute(
       settings: routesettings,
       builder: (_)=>OnboradScreen());
 
+    case ProfileSettings.routeName :
+    return MaterialPageRoute(
+      settings: routesettings,
+      builder: (_)=>ProfileSettings());
     default:
     return MaterialPageRoute(
       builder: (_)=>

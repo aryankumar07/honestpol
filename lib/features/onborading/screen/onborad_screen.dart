@@ -25,7 +25,7 @@ class _OnboradScreenState extends State<OnboradScreen> {
             controller: _pageController,
             children: [
               Pageviewscontainer(
-                Imageurl: 'assets/images/hands.png', 
+                Imageurl: 'assets/images/hands.jpg', 
                 text: 'One Vote One Value \n Embrace Equality',
                 showButton: false,
               ),

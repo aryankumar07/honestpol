@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:honestpol/common_widgets/customcircle.dart';
 import 'package:honestpol/constants/utils.dart';
+import 'package:honestpol/features/profile/screen/profile_settings.dart';
 import 'package:honestpol/providers/userprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   void navigateToprofileSettings(){
-
+    Navigator.pushNamed(context, ProfileSettings.routeName);
   }
 
   @override
@@ -36,9 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             actions: [
               InkWell(
-                onTap: (){
-
-                },
+                onTap: navigateToprofileSettings,
                 child: Customcircleavatar(
                   outerRadius: 40, 
                   innerRadius: 27, 

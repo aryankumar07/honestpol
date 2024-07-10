@@ -40,6 +40,9 @@ dependencies:
   provider: ^6.1.2
   shared_preferences: ^2.2.3
   google_fonts: ^6.2.1
+  file_picker: ^8.0.6
+  cloudinary_public: ^0.23.1
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:
@@ -67,7 +70,7 @@ flutter:
   assets:
     - assets/images/speaker_logo.png
     - assets/images/key.png
-    - assets/images/hands.png
+    - assets/images/hands.jpg
     - assets/images/vote.png
     - assets/images/profile_pic.png
     

@@ -21,4 +21,9 @@ class Userprovider extends ChangeNotifier {
       notifyListeners();
     }
 
+    void setUserFromModel(User user){
+      _user = user;
+      notifyListeners();
+    }
+
 }
