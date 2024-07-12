@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:honestpol/common_widgets/bottom_bar.dart';
+import 'package:honestpol/features/addOpinoin/screen/comment_screen.dart';
+import 'package:honestpol/features/addOpinoin/screen/custome_post_screen.dart';
+import 'package:honestpol/features/addOpinoin/screen/yes_no_opinion_screen.dart';
 import 'package:honestpol/features/auth/screen/admin_screen.dart';
 import 'package:honestpol/features/onborading/screen/onborad_screen.dart';
 import 'package:honestpol/features/profile/screen/profile_settings.dart';
@@ -22,6 +25,22 @@ Route<dynamic> GenerateRoute(RouteSettings routesettings){
     return MaterialPageRoute(
       settings: routesettings,
       builder: (_)=>ProfileSettings());
+
+    case YesNoOpinionScreen.routeName:
+    return MaterialPageRoute(
+      settings: routesettings,
+      builder: (_)=>YesNoOpinionScreen());
+    
+    case CommentScreen.routeName:
+    return MaterialPageRoute(
+      settings: routesettings,
+      builder: (_)=>CommentScreen());
+
+    case CustomePostScreen.routeName:
+    return MaterialPageRoute(
+      settings: routesettings,
+      builder: (_)=>CustomePostScreen());
+
     default:
     return MaterialPageRoute(
       builder: (_)=>
