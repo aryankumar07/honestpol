@@ -3,6 +3,7 @@ import 'package:honestpol/common_widgets/bottom_bar.dart';
 import 'package:honestpol/features/auth/screen/admin_screen.dart';
 import 'package:honestpol/features/auth/service/auth_service.dart';
 import 'package:honestpol/features/onborading/screen/onborad_screen.dart';
+import 'package:honestpol/providers/optionnameprovider.dart';
 import 'package:honestpol/providers/userprovider.dart';
 import 'package:honestpol/routes.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ void main(){
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context)=>Userprovider()),
+        ChangeNotifierProvider(create: (context)=>Optionnameprovider()),
       ],
       child: MyApp())
     );

@@ -34,3 +34,25 @@ Future<File> PickImages()async{
 
   return profileimage;
 }
+
+
+Future<List<File>> PickMultipleImage()async{
+  List<File> PickedImages=[];
+  try{
+    var result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.image
+    );
+
+    if(result!=null && result.files.isNotEmpty){
+      for(int i=0;i<result.files.length;i++){
+        PickedImages.add(
+          File(result.files[i].path!)
+        );
+      }
+    }
+  }catch(e){
+    debugPrint(e.toString());
+  }
+  return PickedImages;
+}
