@@ -9,17 +9,24 @@ class Optionnameprovider extends ChangeNotifier {
   List<String> get options => _options;
 
   void addToOptions(int index){
-    options.add("Option ${index}");
+    _options.add("Option ${index}");
     notifyListeners();
   }
 
   void deleteOption(int index){
-    options.removeAt(index);
+    _options.removeAt(index);
     notifyListeners();
   }
 
   void changeoption(String newname,int index){
-    options[index] = newname;
+    _options[index] = newname;
+    notifyListeners();
+  }
+
+  void resetoptions(){
+    _options.clear();
+    _options.add("options 1");
+    _options.add("options 2");
     notifyListeners();
   }
 

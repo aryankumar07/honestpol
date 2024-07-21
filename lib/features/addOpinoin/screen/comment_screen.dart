@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:honestpol/common_widgets/customcircle.dart';
 import 'package:honestpol/constants/utils.dart';
+import 'package:honestpol/features/addOpinoin/service/addOpinionSerrvice.dart';
 import 'package:honestpol/features/addOpinoin/widgets/options.dart';
 
 class CommentScreen extends StatefulWidget {
@@ -22,10 +23,17 @@ class _CommentScreenState extends State<CommentScreen> {
 
   Color _defaultColor = Colors.lime.shade300;
 
+  final TextEditingController questionController = TextEditingController();
+
+  final AddopinionService addopinionService = AddopinionService();
+
   File? picked_image;
 
   void pickimage()async{
     picked_image = await PickImages();
+    if(picked_image!=null){
+      setState(() {});
+    }
   }
 
 
@@ -164,28 +172,37 @@ class _CommentScreenState extends State<CommentScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Container(
-            height: 52,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(14)),
-              color: Colors.white
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(width: MediaQuery.of(context).size.width/2-50,),
-                Text(
-                  'Post',
-                  style: GoogleFonts.kodeMono(
-                    textStyle: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black
+          child: InkWell(
+            onTap: (){
+              addopinionService.addCommentPoll(
+                context: context, 
+                question: questionController.text, 
+                commenturl: picked_image!, 
+                colordata: _defaultColor);
+            },
+            child: Container(
+              height: 52,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(14)),
+                color: Colors.white
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width/2-50,),
+                  Text(
+                    'Post',
+                    style: GoogleFonts.kodeMono(
+                      textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black
+                      )
+                    ),
                     )
-                  ),
-                  )
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -277,12 +294,14 @@ class _CommentScreenState extends State<CommentScreen> {
                           height: 150,
                           width: double.infinity,
                           child: TextField(
+                            controller: questionController,
                             maxLines: 3,
                             textDirection: TextDirection.rtl,
                             style: GoogleFonts.lilitaOne(
                               textStyle: TextStyle(
                                 fontSize: 30,
-                                fontWeight: FontWeight.bold
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black
                               )
                             ),
                             decoration: InputDecoration(
@@ -291,7 +310,7 @@ class _CommentScreenState extends State<CommentScreen> {
                               enabledBorder: InputBorder.none,
                               errorBorder: InputBorder.none,
                               disabledBorder: InputBorder.none,
-                              hintText: 'Enter Your Question'
+                              hintText: 'Enter Your Question',
                             ),
                           ),
                         ),
@@ -300,29 +319,40 @@ class _CommentScreenState extends State<CommentScreen> {
                   ),
                 ),
                 SizedBox(height: 20,),
-                DottedBorder(
-                  borderType: BorderType.RRect,
-                  color: Colors.white,
-                  radius: Radius.circular(12),
-                  padding: EdgeInsets.all(6),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    child: Container(
-                      height: 200,
-                      width: double.infinity,
-                      child: Center(
-                        child: InkWell(
-                          onTap: (){
-                            pickimage();
-                          },
-                          child: Icon(
-                            CupertinoIcons.camera_on_rectangle_fill
-                            ),
+                if(picked_image!=null)...[
+                  Container(
+                    height: 200,
+                    width: 300,
+                    child: Image.file(
+                      picked_image!,
+                      fit: BoxFit.fill,),
+                  )
+                ],
+                if(picked_image==null)...[
+                    DottedBorder(
+                    borderType: BorderType.RRect,
+                    color: Colors.white,
+                    radius: Radius.circular(12),
+                    padding: EdgeInsets.all(6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      child: InkWell(
+                        onTap: (){
+                          pickimage();
+                        },
+                        child: Container(
+                          height: 200,
+                          width: double.infinity,
+                          child: Center(
+                            child: Icon(
+                                CupertinoIcons.camera_on_rectangle_fill
+                                ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
+                ]
 
               ],
             ),

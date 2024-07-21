@@ -152,6 +152,11 @@ class _CustomePostScreenState extends State<CustomePostScreen> {
     );
   }
 
+  void reset(){
+    questionController.text = '';
+    Provider.of<Optionnameprovider>(context,listen: false).resetoptions();
+  }
+
   @override
   Widget build(BuildContext context) {
   List<String> options = Provider.of<Optionnameprovider>(context,listen: true).options;
@@ -182,27 +187,35 @@ class _CustomePostScreenState extends State<CustomePostScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.only(top: 15,left: 15,right: 15,bottom: 5),
-          child: Container(
-            height: 52,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(14)),
-                color: Colors.white),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 2 - 50,
-                ),
-                Text(
-                  'Post',
-                  style: GoogleFonts.kodeMono(
-                      textStyle: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black)),
-                )
-              ],
+          child: InkWell(
+            onTap: (){
+              final list = Provider.of<Optionnameprovider>(context,listen: false).options;
+              for(int i=0;i<list.length;i++){
+                print(list[i]);
+              }
+            },
+            child: Container(
+              height: 52,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(14)),
+                  color: Colors.white),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2 - 50,
+                  ),
+                  Text(
+                    'Post',
+                    style: GoogleFonts.kodeMono(
+                        textStyle: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black)),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -343,6 +356,20 @@ class _CustomePostScreenState extends State<CustomePostScreen> {
                                 onPressed: () {
                                   int length = Provider.of<Optionnameprovider>(context,listen: false).options.length;
                                   Provider.of<Optionnameprovider>(context,listen: false).addToOptions(length+1);
+                                },
+                                color: _defaultColor);
+                          }),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Builder(builder: (context) {
+                            return CircleButtonPoll(
+                                innerradius: 26,
+                                outerradius: 30,
+                                icondata: CupertinoIcons.delete,
+                                iconsize: 22,
+                                onPressed: (){
+                                  reset();
                                 },
                                 color: _defaultColor);
                           }),

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:honestpol/common_widgets/customcircle.dart';
+import 'package:honestpol/features/addOpinoin/service/addOpinionSerrvice.dart';
 import 'package:honestpol/features/addOpinoin/widgets/options.dart';
 
 class YesNoOpinionScreen extends StatefulWidget {
@@ -17,6 +18,8 @@ class YesNoOpinionScreen extends StatefulWidget {
 class _YesNoOpinionScreenState extends State<YesNoOpinionScreen> {
 
   Color _defaultColor = Colors.amber.shade800;
+  final TextEditingController questionController = TextEditingController();
+  final AddopinionService addopinionService = AddopinionService();
 
 
   void showbottomsheet(BuildContext context){
@@ -154,28 +157,35 @@ class _YesNoOpinionScreenState extends State<YesNoOpinionScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Container(
-            height: 52,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(14)),
-              color: Colors.white
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(width: MediaQuery.of(context).size.width/2-50,),
-                Text(
-                  'Post',
-                  style: GoogleFonts.kodeMono(
-                    textStyle: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.black
+          child: InkWell(
+            onTap: (){
+              addopinionService.addYesNoPoll(context: context, 
+              question: questionController.text, 
+              colordata: _defaultColor);
+            },
+            child: Container(
+              height: 52,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(14)),
+                color: Colors.white
+              ),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(width: MediaQuery.of(context).size.width/2-50,),
+                  Text(
+                    'Post',
+                    style: GoogleFonts.kodeMono(
+                      textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.black
+                      )
+                    ),
                     )
-                  ),
-                  )
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -254,7 +264,7 @@ class _YesNoOpinionScreenState extends State<YesNoOpinionScreen> {
                                       size: 25,
                                       ),
                                   ),
-                                                              ),
+                                  ),
                                 );
                               })
                           )
@@ -267,6 +277,7 @@ class _YesNoOpinionScreenState extends State<YesNoOpinionScreen> {
                           height: 200,
                           width: double.infinity,
                           child: TextField(
+                            controller: questionController,
                             maxLines: 3,
                             textDirection: TextDirection.rtl,
                             style: GoogleFonts.lilitaOne(

@@ -38,7 +38,7 @@ class SelectionPollOption extends StatelessWidget{
                     child: TextField(
                       onSubmitted: (value) {
                         if(value.isNotEmpty){
-                          Provider.of<Optionnameprovider>(context)
+                          Provider.of<Optionnameprovider>(context,listen: false)
                           .changeoption(value, index);
                         }
                       },
