@@ -1,12 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:honestpol/common_widgets/customcircle.dart';
+import 'package:honestpol/constants/utils.dart';
+import 'package:honestpol/features/addOpinoin/service/addOpinionSerrvice.dart';
 import 'package:honestpol/features/addOpinoin/widgets/circle_button_poll.dart';
 import 'package:honestpol/features/addOpinoin/widgets/option_type.dart';
 import 'package:honestpol/features/addOpinoin/widgets/pick_images_container.dart';
 import 'package:honestpol/features/addOpinoin/widgets/selection_poll_option.dart';
 import 'package:honestpol/providers/optionnameprovider.dart';
+import 'package:honestpol/providers/pickedimagesprovider.dart';
 import 'package:provider/provider.dart';
 
 class CustomePostScreen extends StatefulWidget {
@@ -22,6 +27,7 @@ class _CustomePostScreenState extends State<CustomePostScreen> {
   Color _defaultColor = Colors.amber.shade800;
   bool _selectionpoll = true;
   final TextEditingController questionController = TextEditingController();
+  final AddopinionService addopinionService = AddopinionService();
 
 
   void showbottomsheet(BuildContext context) {
@@ -163,6 +169,12 @@ class _CustomePostScreenState extends State<CustomePostScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back_ios)),
           title: Text(
             'Custom Poll',
             style: GoogleFonts.kodeMono(
@@ -190,9 +202,15 @@ class _CustomePostScreenState extends State<CustomePostScreen> {
           child: InkWell(
             onTap: (){
               final list = Provider.of<Optionnameprovider>(context,listen: false).options;
-              for(int i=0;i<list.length;i++){
-                print(list[i]);
-              }
+              addopinionService.addCustomPoll(
+                context: context, 
+                question: questionController.text, 
+                type: _selectionpoll==true?"Selection":"Comment", 
+                customPhoto: Provider.of<Pickedimagesprovider>(context,listen: false).pickedimages==null 
+                ? File('') : 
+                Provider.of<Pickedimagesprovider>(context,listen: false).pickedimages!, 
+                options: options, 
+                colordata: _defaultColor);
             },
             child: Container(
               height: 52,

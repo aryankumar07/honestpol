@@ -4,6 +4,7 @@ import 'package:honestpol/features/auth/screen/admin_screen.dart';
 import 'package:honestpol/features/auth/service/auth_service.dart';
 import 'package:honestpol/features/onborading/screen/onborad_screen.dart';
 import 'package:honestpol/providers/optionnameprovider.dart';
+import 'package:honestpol/providers/pickedimagesprovider.dart';
 import 'package:honestpol/providers/userprovider.dart';
 import 'package:honestpol/routes.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +15,7 @@ void main(){
       providers: [
         ChangeNotifierProvider(create: (context)=>Userprovider()),
         ChangeNotifierProvider(create: (context)=>Optionnameprovider()),
+        ChangeNotifierProvider(create: (context)=>Pickedimagesprovider()),
       ],
       child: MyApp())
     );
