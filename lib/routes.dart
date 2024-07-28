@@ -4,8 +4,12 @@ import 'package:honestpol/features/addOpinoin/screen/comment_screen.dart';
 import 'package:honestpol/features/addOpinoin/screen/custome_post_screen.dart';
 import 'package:honestpol/features/addOpinoin/screen/yes_no_opinion_screen.dart';
 import 'package:honestpol/features/auth/screen/admin_screen.dart';
+import 'package:honestpol/features/home/screen/poll_detail_screen.dart';
+import 'package:honestpol/features/model_screen/user_profile.dart';
 import 'package:honestpol/features/onborading/screen/onborad_screen.dart';
 import 'package:honestpol/features/profile/screen/profile_settings.dart';
+import 'package:honestpol/models/screen_arguments.dart';
+import 'package:honestpol/models/user.dart';
 
 Route<dynamic> GenerateRoute(RouteSettings routesettings){
   switch(routesettings.name){
@@ -40,6 +44,18 @@ Route<dynamic> GenerateRoute(RouteSettings routesettings){
     return MaterialPageRoute(
       settings: routesettings,
       builder: (_)=>CustomePostScreen());
+
+    case PollDetailScreen.routeName:
+    final ScreenArguments arguments = routesettings.arguments as ScreenArguments;
+    return MaterialPageRoute(
+      settings: routesettings,
+      builder: (_)=>PollDetailScreen(arguments: arguments,));
+
+    case UserProfile.routeName:
+    final User user = routesettings.arguments as User;
+    return MaterialPageRoute(
+      settings: routesettings,
+      builder: (_)=>UserProfile(user: user));
 
     default:
     return MaterialPageRoute(

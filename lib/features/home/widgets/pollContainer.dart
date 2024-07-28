@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:honestpol/features/home/screen/poll_detail_screen.dart';
 import 'package:honestpol/features/home/service/home_service.dart';
+import 'package:honestpol/models/screen_arguments.dart';
 // import 'package:honestpol/models/poll.dart';
 import 'package:honestpol/models/user.dart';
 
@@ -21,8 +23,10 @@ class Pollcontainer extends StatefulWidget {
 class _PollcontainerState extends State<Pollcontainer> {
   Homeservice homeservice = Homeservice();
   Color _defaultcolor = Colors.blue;
+  Color _defaultHeartcolor = Colors.white;
   String _name = "Creater Name";
   String _imageUrl = "";
+
   User user=User(
     email: '', 
     cid: '', 
@@ -36,12 +40,10 @@ class _PollcontainerState extends State<Pollcontainer> {
     bio: '');
 
   void getData()async{
-    print('Color changed');
     _defaultcolor = Color(int.parse(widget.poll.color.substring(6,16)));
     user = await homeservice.getUserData(
       context: context,
       userid: widget.poll.userid);
-    print(user);
       setState(() {});
   }
 
@@ -116,30 +118,36 @@ class _PollcontainerState extends State<Pollcontainer> {
                       ),
                       SizedBox(height: 60,),
                       if(widget.poll.type=="comment")...[
-                        Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width/2 + 40,
-                            decoration: BoxDecoration(
-                              color:  Colors.grey.withOpacity(0.6),
-                              borderRadius: BorderRadius.all(Radius.circular(14)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 15.0,bottom: 15.0,left: 30,right: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Write your Comment',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
+                        InkWell(
+                          onTap: (){
+                            final args =  ScreenArguments(poll: widget.poll, user: user);
+                            Navigator.of(context).pushNamed(PollDetailScreen.routeName,arguments: args);
+                          },
+                          child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width/2 + 40,
+                              decoration: BoxDecoration(
+                                color:  Colors.grey.withOpacity(0.6),
+                                borderRadius: BorderRadius.all(Radius.circular(14)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15.0,bottom: 15.0,left: 30,right: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Write your Comment',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                  ),
-                                  Icon(Icons.arrow_forward_ios_sharp,size: 20,),
-                                ],
+                                    Icon(Icons.arrow_forward_ios_sharp,size: 20,),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                        ),
                       ],
                       if(widget.poll.type=="yn")...[
                         Container(
@@ -213,7 +221,7 @@ class _PollcontainerState extends State<Pollcontainer> {
                 right: 2.0,
                 child: Container(
                   height: 100,
-                  width: 60,
+                  width: 70,
                   decoration: BoxDecoration(
                       border: Border.all(color: Colors.white),
                       borderRadius: BorderRadius.all(Radius.circular(14)),
@@ -221,11 +229,38 @@ class _PollcontainerState extends State<Pollcontainer> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Icon(Icons.share),
-                      Text('22'),
+                      SizedBox(height: 15,),
+                     Row(
+                      children: [
+                        SizedBox(width: 10,),
+                        InkWell(
+                          onTap: () {
+                            if(_defaultHeartcolor == Colors.white){
+                              _defaultHeartcolor = Colors.red;
+                              setState(() {});
+                            }else{
+                              _defaultHeartcolor = Colors.white;
+                              setState(() {});
+                            }
+                          },
+                          child: Icon(
+                            CupertinoIcons.heart_fill,
+                            color: _defaultHeartcolor,)),
+                        SizedBox(width: 5,),
+                        Text('0')
+                      ],
+                     ),
+                     SizedBox(height: 15,),
+                     Row(
+                      children: [
+                        SizedBox(width: 10,),
+                        Icon(
+                          CupertinoIcons.share_solid,
+                          color: Colors.white,),
+                        SizedBox(width: 5,),
+                        Text('0')
+                      ],
+                     )
                     ],
                   ),
                 ),
