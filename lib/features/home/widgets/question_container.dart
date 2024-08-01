@@ -1,7 +1,10 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:honestpol/common_widgets/custom_alert.dart';
 import 'package:honestpol/constants/extensions.dart';
+import 'package:honestpol/constants/utils.dart';
+import 'package:honestpol/features/home/service/home_service.dart';
 
 class QuestionContainer extends StatefulWidget {
 
@@ -20,6 +23,27 @@ class QuestionContainer extends StatefulWidget {
 class _QuestionContainerState extends State<QuestionContainer> {
 
   final TextEditingController commentController = TextEditingController();
+
+  final Homeservice homeservice = Homeservice();
+
+
+  void showalertDialogue(){
+    showDialog(
+      context: context, 
+      builder: (BuildContext context){
+        return CustomAlertDialog(onPressed: (){
+          homeservice.addComment(
+            context: context, 
+            comment: commentController.text, 
+            pollid: widget.poll.pollid, 
+            commentadded: (){
+              commentController.text = '';
+              Navigator.pop(context);
+              ShowSnackbar(context, 'Your opinion has been added');
+            });
+        },);
+      });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +107,11 @@ class _QuestionContainerState extends State<QuestionContainer> {
             padding: const EdgeInsets.all(15.0),
             child: InkWell(
               onTap: (){
-                print(commentController.text);
+                if(commentController.text.isEmpty){
+                  ShowSnackbar(context, "Enter your opinion to post");
+                }else{
+                  showalertDialogue();
+                }
               },
               child: Container(
                 height: 52,

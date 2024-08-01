@@ -139,4 +139,75 @@ class Homeservice{
     return custompolls;
   }
 
+  void addComment({
+    required BuildContext context,
+    required String comment,
+    required String pollid,
+    required VoidCallback commentadded
+  })async{
+    final user = Provider.of<Userprovider>(context,listen: false).user;
+    try{
+      http.Response response = await http.post(
+        Uri.parse('$baseUri/user/add-comment'),
+          headers: <String,String>{
+            'Content-Type' : 'application/json; charset=UTF-8',
+            'x-auth-token' : user.token
+          },
+          body: jsonEncode({
+            'comment' : comment,
+            'pollid' : pollid
+          })
+        );
+
+        HttpErrorhandler(
+          context: context, 
+          response: response, 
+          onPressed: (){
+            commentadded();
+          });
+
+    }catch(e){
+      ShowSnackbar(context, e.toString());
+    }
+  }
+
+
+  Future<List<int>> addYnOpinion({
+    required BuildContext context,
+    required int option,
+    required String pollid
+  })async{
+    final user = Provider.of<Userprovider>(context,listen: false).user;
+    List<int> votescount=[];
+    try{
+      http.Response response = await http.post(
+        Uri.parse('$baseUri/user/add-yn-opinion'),
+        headers: <String,String>{
+          'Content-Type' : 'application/json; charset=UTF-8',
+          'x-auth-token' : user.token
+        },
+        body: jsonEncode({
+          'option' : option,
+          'pollid' : pollid
+        })
+      );
+
+      HttpErrorhandler(
+        context: context, 
+        response: response, 
+        onPressed: (){
+          final data = jsonDecode(response.body);
+          votescount.add(data['yescount']);
+          votescount.add(data['totalvotes']);
+        });
+
+
+    }catch(e){
+      ShowSnackbar(context, e.toString());
+    }
+
+    return votescount;
+  }
+
+
 }

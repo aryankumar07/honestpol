@@ -150,56 +150,68 @@ class _PollcontainerState extends State<Pollcontainer> {
                         ),
                       ],
                       if(widget.poll.type=="yn")...[
-                        Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width/2 + 40,
-                            decoration: BoxDecoration(
-                              color:  Colors.grey.withOpacity(0.6),
-                              borderRadius: BorderRadius.all(Radius.circular(14)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 15.0,bottom: 15.0,left: 30,right: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Choose Yes or No',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
+                        InkWell(
+                          onTap: (){
+                            final args =  ScreenArguments(poll: widget.poll, user: user);
+                            Navigator.of(context).pushNamed(PollDetailScreen.routeName,arguments: args);
+                          },
+                          child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width/2 + 40,
+                              decoration: BoxDecoration(
+                                color:  Colors.grey.withOpacity(0.6),
+                                borderRadius: BorderRadius.all(Radius.circular(14)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15.0,bottom: 15.0,left: 30,right: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Choose Yes or No',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                  ),
-                                  Icon(Icons.arrow_forward_ios_sharp,size: 20,),
-                                ],
+                                    Icon(Icons.arrow_forward_ios_sharp,size: 20,),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                        ),
                       ],
                       if(widget.poll.type=="Selection")...[
-                        Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width/2 + 40,
-                            decoration: BoxDecoration(
-                              color:  Colors.grey.withOpacity(0.6),
-                              borderRadius: BorderRadius.all(Radius.circular(14)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 15.0,bottom: 15.0,left: 30,right: 10),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Pick An Option',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
+                        InkWell(
+                          onTap: (){
+                            final args =  ScreenArguments(poll: widget.poll, user: user);
+                            Navigator.of(context).pushNamed(PollDetailScreen.routeName,arguments: args);
+                          },
+                          child: Container(
+                              height: 60,
+                              width: MediaQuery.of(context).size.width/2 + 40,
+                              decoration: BoxDecoration(
+                                color:  Colors.grey.withOpacity(0.6),
+                                borderRadius: BorderRadius.all(Radius.circular(14)),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 15.0,bottom: 15.0,left: 30,right: 10),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      'Pick An Option',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                      ),
                                     ),
-                                  ),
-                                  Icon(Icons.arrow_forward_ios_sharp,size: 20,),
-                                ],
+                                    Icon(Icons.arrow_forward_ios_sharp,size: 20,),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                        ),
                       ],
                     ],
                   ),
