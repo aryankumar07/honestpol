@@ -15,6 +15,7 @@ class CustomPoll {
   List<String> options;
   List<Votes> votes;
   List<Comment> comments;
+  List<String> likes;
 
   
   CustomPoll({
@@ -26,7 +27,8 @@ class CustomPoll {
     required this.options,
     required this.votes,
     required this.comments,
-    required this.color
+    required this.color,
+    required this.likes,
   });
 
 
@@ -39,6 +41,7 @@ class CustomPoll {
       'customphoto': customphoto,
       'options': options,
       'color' : color,
+      'likes' : likes,
       'votes': votes.map((x) => x.toMap()).toList(),
       'comments': comments.map((x) => x.toMap()).toList(),
     };
@@ -53,6 +56,7 @@ class CustomPoll {
       customphoto: map['customphoto'] ?? '',
       options: List<String>.from(map['options']),
       color: map['color'],
+      likes: List<String>.from(map['likes']),
       votes: List<Votes>.from((map['votes']).map<Votes>((x) => Votes.fromMap(x as Map<String,dynamic>),),),
       comments: List<Comment>.from((map['comments']).map<Comment>((x) => Comment.fromMap(x as Map<String,dynamic>),),),
     );

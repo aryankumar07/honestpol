@@ -12,32 +12,29 @@ import 'package:honestpol/providers/userprovider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class Homeservice{
+class Homeservice {
   Future<List<Commentpoll>> getCommentPoll({
     required BuildContext context,
   }) async {
-    final user = Provider.of<Userprovider>(context,listen: false).user;
+    final user = Provider.of<Userprovider>(context, listen: false).user;
     List<Commentpoll> commentpolls = [];
-    try{
+    try {
       http.Response response = await http.get(
-        Uri.parse('$baseUri/home/get_comment_poll'),
-        headers: <String,String>{
-          'Content-Type' : 'application/json; charset=UTF-8',
-          'x-auth-token' : user.token
-        }
-      );
+          Uri.parse('$baseUri/home/get_comment_poll'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
+          });
       HttpErrorhandler(
-        context: context, 
-        response: response, 
-        onPressed: (){
-          final list = jsonDecode(response.body);
-          for(int i=0;i<list.length;i++){
-            commentpolls.add(
-              Commentpoll.fromJson(jsonEncode(list[i]))
-            );
-          }
-        });
-    }catch(e){
+          context: context,
+          response: response,
+          onPressed: () {
+            final list = jsonDecode(response.body);
+            for (int i = 0; i < list.length; i++) {
+              commentpolls.add(Commentpoll.fromJson(jsonEncode(list[i])));
+            }
+          });
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
     return commentpolls;
@@ -46,205 +43,275 @@ class Homeservice{
   Future<User> getUserData({
     required BuildContext context,
     required String userid,
-  })async{
+  }) async {
     User user = User(
-      email: '', 
-      cid: '', 
-      status: '', 
-      token: '', 
-      profilepic: '', 
-      votes: [], 
-      id: '', 
-      name: '', 
-      posts: [], 
-      bio: '');
-    try{
-      http.Response response = await http.get(
-        Uri.parse('$baseUri/home/get_user'),
-        headers: <String,String>{
-          'Content-Type' : 'application/json; charset=UTF-8',
-          'userid' : userid
-        }
-      );
+        email: '',
+        cid: '',
+        status: '',
+        token: '',
+        profilepic: '',
+        votes: [],
+        id: '',
+        name: '',
+        posts: [],
+        bio: '');
+    try {
+      http.Response response = await http
+          .get(Uri.parse('$baseUri/home/get_user'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'userid': userid
+      });
       HttpErrorhandler(
-        context: context, 
-        response: response, 
-        onPressed: (){
-          // print(response.body);
-          user = User.fromJson(response.body);
-        });
-    }catch(e){
+          context: context,
+          response: response,
+          onPressed: () {
+            // print(response.body);
+            user = User.fromJson(response.body);
+          });
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
     return user;
   }
 
-
   Future<List<YnPoll>> getynpoll({
     required BuildContext context,
-  })async{
+  }) async {
     // print('fetching the yn polls in homeservice');
     List<YnPoll> ynpolls = [];
-    try{
-      http.Response response = await http.get(
-        Uri.parse('$baseUri/home/get_ynpoll'),
-        headers: <String,String>{
-          'Content-Type' : 'application/json; charset=UTF-8',
-        }
-      );
+    try {
+      http.Response response = await http
+          .get(Uri.parse('$baseUri/home/get_ynpoll'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
       // print(response.body);
       HttpErrorhandler(
-        context: context, 
-        response: response, 
-        onPressed: (){
-          final list = jsonDecode(response.body);
-          for(int i=0;i<list.length;i++){
-            ynpolls.add(
-              YnPoll.fromJson(jsonEncode(list[i]))
-            );
-          }
-        });
-
-    }catch(e){
+          context: context,
+          response: response,
+          onPressed: () {
+            final list = jsonDecode(response.body);
+            for (int i = 0; i < list.length; i++) {
+              ynpolls.add(YnPoll.fromJson(jsonEncode(list[i])));
+            }
+          });
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
     return ynpolls;
   }
 
-  Future<List<CustomPoll>> getCustomPoll({
-    required BuildContext context
-  })async{
+  Future<List<CustomPoll>> getCustomPoll(
+      {required BuildContext context}) async {
     List<CustomPoll> custompolls = [];
-    try{
+    try {
       http.Response response = await http.get(
-        Uri.parse('$baseUri/home/get-custom-poll'),
-        headers: <String,String>{
-          'Content-Type' : 'application/json; charset=UTF-8'
-        }
-      );
+          Uri.parse('$baseUri/home/get-custom-poll'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8'
+          });
       HttpErrorhandler(
-        context: context,
-        response: response, 
-        onPressed: (){
-          final list = jsonDecode(response.body);
-          for(int i=0;i<list.length;i++){
-            custompolls.add(
-              CustomPoll.fromJson(jsonEncode(list[i]))
-            );
-          }
-        });
-    }catch(e){
+          context: context,
+          response: response,
+          onPressed: () {
+            final list = jsonDecode(response.body);
+            for (int i = 0; i < list.length; i++) {
+              custompolls.add(CustomPoll.fromJson(jsonEncode(list[i])));
+            }
+          });
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
     return custompolls;
   }
 
-  void addComment({
-    required BuildContext context,
-    required String comment,
-    required String pollid,
-    required VoidCallback commentadded
-  })async{
-    final user = Provider.of<Userprovider>(context,listen: false).user;
-    try{
+  void addComment(
+      {required BuildContext context,
+      required String comment,
+      required String pollid,
+      required VoidCallback commentadded}) async {
+    final user = Provider.of<Userprovider>(context, listen: false).user;
+    try {
       http.Response response = await http.post(
-        Uri.parse('$baseUri/user/add-comment'),
-          headers: <String,String>{
-            'Content-Type' : 'application/json; charset=UTF-8',
-            'x-auth-token' : user.token
+          Uri.parse('$baseUri/user/add-comment'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
           },
-          body: jsonEncode({
-            'comment' : comment,
-            'pollid' : pollid
-          })
-        );
+          body: jsonEncode({'comment': comment, 'pollid': pollid}));
 
-        HttpErrorhandler(
-          context: context, 
-          response: response, 
-          onPressed: (){
+      HttpErrorhandler(
+          context: context,
+          response: response,
+          onPressed: () {
             commentadded();
           });
-
-    }catch(e){
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
   }
 
-
-  Future<List<int>> addYnOpinion({
-    required BuildContext context,
-    required int option,
-    required String pollid
-  })async{
-    final user = Provider.of<Userprovider>(context,listen: false).user;
-    List<int> votescount=[];
-    try{
+  Future<List<int>> addYnOpinion(
+      {required BuildContext context,
+      required int option,
+      required String pollid}) async {
+    final user = Provider.of<Userprovider>(context, listen: false).user;
+    List<int> votescount = [];
+    try {
       http.Response response = await http.post(
-        Uri.parse('$baseUri/user/add-yn-opinion'),
-        headers: <String,String>{
-          'Content-Type' : 'application/json; charset=UTF-8',
-          'x-auth-token' : user.token
-        },
-        body: jsonEncode({
-          'option' : option,
-          'pollid' : pollid
-        })
-      );
+          Uri.parse('$baseUri/user/add-yn-opinion'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
+          },
+          body: jsonEncode({'option': option, 'pollid': pollid}));
 
       HttpErrorhandler(
-        context: context, 
-        response: response, 
-        onPressed: (){
-          final data = jsonDecode(response.body);
-          votescount.add(data['yescount']);
-          votescount.add(data['totalvotes']);
-        });
-
-
-    }catch(e){
+          context: context,
+          response: response,
+          onPressed: () {
+            final data = jsonDecode(response.body);
+            votescount.add(data['yescount']);
+            votescount.add(data['totalvotes']);
+          });
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
 
     return votescount;
   }
 
-  Future<Map<String,dynamic>> addCustomopinion({
-    required BuildContext context,
-    required String option,
-    required List<String> options,
-    required String pollid
-  })async{
-    final user = Provider.of<Userprovider>(context,listen: false).user;
-    Map<String,dynamic> countvotes={};
-    try{
+  Future<Map<String, dynamic>> addCustomopinion(
+      {required BuildContext context,
+      required String option,
+      required List<String> options,
+      required String pollid}) async {
+    final user = Provider.of<Userprovider>(context, listen: false).user;
+    Map<String, dynamic> countvotes = {};
+    try {
       http.Response response = await http.post(
-        Uri.parse('$baseUri/user/custom-add-opinion'),
-        headers: <String,String>{
-          'Content-Type' : 'application/json; charset=UTF-8',
-          'x-auth-token' : user.token
-        },
-        body: jsonEncode({
-          'option' : option,
-          'pollid' : pollid,
-          'options' : options 
-        })
-      );
+          Uri.parse('$baseUri/user/custom-add-opinion'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
+          },
+          body: jsonEncode(
+              {'option': option, 'pollid': pollid, 'options': options}));
 
       HttpErrorhandler(
-        context: context, 
-        response: response, 
-        onPressed: (){
-          Map<String,dynamic> data = jsonDecode(response.body)['countedvotes'] as Map<String,dynamic>;
-          countvotes.addAll(data);
-        });
-
-    }catch(e){
+          context: context,
+          response: response,
+          onPressed: () {
+            Map<String, dynamic> data =
+                jsonDecode(response.body)['countedvotes']
+                    as Map<String, dynamic>;
+            countvotes.addAll(data);
+          });
+    } catch (e) {
       ShowSnackbar(context, e.toString());
     }
 
     return countvotes;
   }
 
+  Future<int> incLikes({
+    required BuildContext context,
+    required String pollid,
+    required String type,
+  }) async {
+    try {
+      final user = Provider.of<Userprovider>(context, listen: false).user;
+      http.Response response = await http.post(
+          Uri.parse('$baseUri/poll/inc-likes'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
+          },
+          body: jsonEncode({'pollid': pollid, 'type': type}));
 
+      int data = jsonDecode(response.body)['count'] as int;
+
+      HttpErrorhandler(
+          context: context,
+          response: response,
+          onPressed: () {
+            ShowSnackbar(context, 'Like Added');
+          });
+
+      return data;
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
+
+    return 0;
+  }
+
+  Future<int> decLikes({
+    required BuildContext context,
+    required String pollid,
+    required String type,
+  }) async {
+    try {
+      final user = Provider.of<Userprovider>(context, listen: false).user;
+      http.Response response = await http.post(
+          Uri.parse('$baseUri/poll/dec-likes'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
+          },
+          body: jsonEncode({'pollid': pollid, 'type': type}));
+
+      int data = jsonDecode(response.body)['count'] as int;
+
+      HttpErrorhandler(
+          context: context,
+          response: response,
+          onPressed: () {
+            ShowSnackbar(context, 'Like removed');
+          });
+
+      return data;
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
+
+    return 0;
+  }
+
+  Future<bool> liked({
+    required BuildContext context,
+    required String pollid,
+    required String type,
+  }) async {
+    final user = Provider.of<Userprovider>(context, listen: false).user;
+    try {
+      http.Response response = await http
+          .get(Uri.parse('$baseUri/user/liked'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': user.token,
+        'pollid': pollid,
+        'type': type
+      });
+
+      String data = jsonDecode(response.body)['found'];
+      // print(jsonDecode(response.body));
+      // print(data);
+      bool found=false;
+
+      HttpErrorhandler(
+          context: context,
+          response: response,
+          onPressed: () {
+            if (data == "true") {
+              found=true;
+            } else {
+              found = false;
+            }
+          });
+      
+      return found;
+    } catch (e) {
+      ShowSnackbar(context, e.toString());
+    }
+    return false;
+  }
 }

@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:collection';
 import 'dart:convert';
 
+import 'package:flutter/rendering.dart';
 import 'package:honestpol/models/comment.dart';
 
 class Commentpoll {
@@ -11,6 +13,7 @@ class Commentpoll {
   final String color;
   final String type;
   final List<Comment> comments;
+  final List<String> likes;
 
   Commentpoll({
     required this.pollid, 
@@ -19,7 +22,8 @@ class Commentpoll {
     required this.commentphoto, 
     required this.comments,
     required this.color,
-    required this.type
+    required this.type,
+    required this.likes,
     });
 
 
@@ -31,6 +35,7 @@ class Commentpoll {
       'commentphoto': commentphoto,
       'color' : color,
       'type' : type,
+      'likes' : likes,
       'comments': comments.map((x) => x.toMap()).toList(),
     };
   }
@@ -43,6 +48,7 @@ class Commentpoll {
       question: map['question'] ?? '',
       commentphoto: map['commentphoto'] ?? '',
       type: map['type'] ?? '',
+      likes: List<String>.from((map['likes'])),
       comments: List<Comment>.from((map['comments']).map<Comment>((x) => Comment.fromMap(x),),),
     );
   }
@@ -58,6 +64,7 @@ class Commentpoll {
     String? question,
     String? commentphoto,
     String? type,
+    List<String>? likes,
     List<Comment>? comments,
   }) {
     return Commentpoll(
@@ -67,6 +74,7 @@ class Commentpoll {
       question: question ?? this.question,
       commentphoto: commentphoto ?? this.commentphoto,
       comments: comments ?? this.comments,
+      likes: likes ?? this.likes,
       type: type ?? this.type,
     );
   }

@@ -2,13 +2,14 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class YnPoll {
-  String pollid;
-  String userid;
-  String question;
-  String color;
-  String type;
-  List<String> yesvotes;
-  List<String> novotes;
+  final String pollid;
+  final String userid;
+  final String question;
+  final String color;
+  final String type;
+  final List<String> yesvotes;
+  final List<String> novotes;
+  final List<String> likes;
 
   
   YnPoll({
@@ -19,6 +20,7 @@ class YnPoll {
     required this.yesvotes,
     required this.novotes,
     required this.type,
+    required this.likes
   });
 
 
@@ -31,6 +33,7 @@ class YnPoll {
       'yesvotes': yesvotes,
       'novotes': novotes,
       'type' : type,
+      'likes' : likes,
     };
   }
 
@@ -42,8 +45,9 @@ class YnPoll {
       color: map['color'] ?? '',
       type: map['type'] ?? '',
       yesvotes: List<String>.from(map['yesvotes']),
-      novotes: List<String>.from((map['novotes']),
-    ));
+      novotes: List<String>.from((map['novotes'])),
+      likes: List<String>.from((map['likes'])),
+      );
   }
 
   String toJson() => json.encode(toMap());
@@ -58,6 +62,7 @@ class YnPoll {
     String? type,
     List<String>? yesvotes,
     List<String>? novotes,
+    List<String>? likes,
   }) {
     return YnPoll(
       pollid: pollid ?? this.pollid,
@@ -67,6 +72,7 @@ class YnPoll {
       type: type ?? this.type,
       yesvotes: yesvotes ?? this.yesvotes,
       novotes: novotes ?? this.novotes,
+      likes: likes ?? this.likes
     );
   }
 }
