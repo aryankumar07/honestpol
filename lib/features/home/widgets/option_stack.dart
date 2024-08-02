@@ -9,6 +9,7 @@ class OptionStack extends StatelessWidget{
   int index;
   double outerpollwidth;
   String name;
+  int percentage;
 
   OptionStack({
     super.key,
@@ -17,6 +18,7 @@ class OptionStack extends StatelessWidget{
     required this.index,
     required this.outerpollwidth,
     required this.name,
+    required this.percentage
   });
 
 
@@ -71,9 +73,9 @@ class OptionStack extends StatelessWidget{
                     ),
                     child: Padding(
                       padding:
-                          const EdgeInsets.only(left: 30, top: 12, bottom: 12),
+                          const EdgeInsets.only(left: 10, top: 12, bottom: 12),
                       child: Text(
-                        voted==false ? '' : name ,
+                        voted==false ? '' : '${percentage}%' ,
                         style: GoogleFonts.kodeMono(
                             textStyle: TextStyle(
                                 fontSize: 24,

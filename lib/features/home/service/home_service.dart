@@ -209,5 +209,42 @@ class Homeservice{
     return votescount;
   }
 
+  Future<Map<String,dynamic>> addCustomopinion({
+    required BuildContext context,
+    required String option,
+    required List<String> options,
+    required String pollid
+  })async{
+    final user = Provider.of<Userprovider>(context,listen: false).user;
+    Map<String,dynamic> countvotes={};
+    try{
+      http.Response response = await http.post(
+        Uri.parse('$baseUri/user/custom-add-opinion'),
+        headers: <String,String>{
+          'Content-Type' : 'application/json; charset=UTF-8',
+          'x-auth-token' : user.token
+        },
+        body: jsonEncode({
+          'option' : option,
+          'pollid' : pollid,
+          'options' : options 
+        })
+      );
+
+      HttpErrorhandler(
+        context: context, 
+        response: response, 
+        onPressed: (){
+          Map<String,dynamic> data = jsonDecode(response.body)['countedvotes'] as Map<String,dynamic>;
+          countvotes.addAll(data);
+        });
+
+    }catch(e){
+      ShowSnackbar(context, e.toString());
+    }
+
+    return countvotes;
+  }
+
 
 }

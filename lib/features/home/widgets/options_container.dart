@@ -22,7 +22,29 @@ class _OptionsContainerState extends State<OptionsContainer> {
 
   bool _voted = false;
   int _option = 0;
-  double outerpollwidth = 0.0;
+  int _totalvotes=0;
+  // double outerpollwidth = 0.0;
+
+  Map<String,dynamic> countedvotes = {};  
+
+  void addcustomopinion(String option,List<String> options,String pollid) async {
+    countedvotes = await homeservice.addCustomopinion(
+      context: context, 
+      option: option, 
+      options: options, 
+      pollid: pollid);
+
+      countedvotes.values.forEach((cnt){
+        int val = cnt;
+        _totalvotes += val;
+      });
+
+      setState(() {
+        _voted=true;
+      });
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +84,22 @@ class _OptionsContainerState extends State<OptionsContainer> {
             child: ListView.builder(
                 itemCount: widget.poll.options.length,
                 itemBuilder: (context, index) {
+                  double outerpollwidth=0.0;
+                  if(countedvotes.length==0){
+                    outerpollwidth=0.0;
+                  }else{
+                    String option = widget.poll.options[index];
+                    if(countedvotes[option]==0){
+                      outerpollwidth = MediaQuery.of(context).size.width*0.1;
+                    }else{
+                      outerpollwidth = MediaQuery.of(context).size.width*( countedvotes[option] / _totalvotes );
+                    }
+                  }
+                  int percentage=0;
+                  if(_totalvotes>0){
+                    int val = countedvotes[widget.poll.options[index]] as int;
+                    percentage = ((val / _totalvotes) * 100).toInt();
+                  }
                   return InkWell(
                     onTap: (){
                       print('pressing the options');
@@ -79,6 +117,7 @@ class _OptionsContainerState extends State<OptionsContainer> {
                           index: index+1,
                           outerpollwidth: outerpollwidth,
                           name: widget.poll.options[index],
+                          percentage: percentage,
                           ),
                     ),
                   );
@@ -94,7 +133,12 @@ class _OptionsContainerState extends State<OptionsContainer> {
               onTap: () {
                 if (_option == 0) {
                   ShowSnackbar(context, "To post select an opinion");
-                } else {}
+                } else {
+                  addcustomopinion(
+                    widget.poll.options[_option-1],
+                    widget.poll.options, 
+                    widget.poll.pollid);
+                }
               },
               child: Container(
                 height: 52,
