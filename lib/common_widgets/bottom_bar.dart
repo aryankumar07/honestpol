@@ -24,7 +24,7 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
 
-  int  _currentindex = 0;
+  int  _currentindex = 1;
 
   void changePage(int index){
     setState(() {

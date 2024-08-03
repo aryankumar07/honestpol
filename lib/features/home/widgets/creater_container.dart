@@ -7,11 +7,13 @@ import 'package:honestpol/models/user.dart';
 class CreaterContainer extends StatelessWidget {
 
   final User user;
+  final bool search;
 
 
   const CreaterContainer({
     super.key,
-    required this.user
+    required this.user,
+    this.search=false
     });
 
   @override
@@ -38,7 +40,9 @@ class CreaterContainer extends StatelessWidget {
                     SizedBox(width: 50,),
                     Column(
                       children: [
-                        Text('This Poll was created By : '),
+                        if(search==false)...[
+                          Text('This Poll was created By : '),
+                        ],
                         Text(
                           '${user.name}',
                           style: GoogleFonts.kodeMono(

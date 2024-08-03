@@ -365,7 +365,33 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                     ),
                   ),
                 ),
+              ),
+
+              SizedBox(height: 10,),
+
+              InkWell(
+                onTap: (){},
+                child: Container(
+                  height: 52,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(14)),
+                    color: Colors.red.shade700
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Log Out',
+                      style: GoogleFonts.kodeMono(
+                        textStyle: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w400
+                        )
+                      ),
+                    ),
+                  ),
+                ),
               )
+
             ],
           ),
         ),

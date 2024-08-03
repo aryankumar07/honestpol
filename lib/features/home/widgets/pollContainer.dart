@@ -94,7 +94,7 @@ class _PollcontainerState extends State<Pollcontainer> {
           child: Stack(
             children: [
               Container(
-                height: 300,
+                height: 320,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(14)),
                     color: _defaultcolor),
@@ -151,126 +151,171 @@ class _PollcontainerState extends State<Pollcontainer> {
                         height: 60,
                       ),
                       if (widget.poll.type == "comment") ...[
-                        InkWell(
-                          onTap: () {
-                            final args =
-                                ScreenArguments(poll: widget.poll, user: user);
-                            Navigator.of(context).pushNamed(
-                                PollDetailScreen.routeName,
-                                arguments: args);
-                          },
-                          child: Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 + 40,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.6),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(14)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0, bottom: 15.0, left: 30, right: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Write your Comment',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                final args =
+                                    ScreenArguments(poll: widget.poll, user: user);
+                                Navigator.of(context).pushNamed(
+                                    PollDetailScreen.routeName,
+                                    arguments: args);
+                              },
+                              child: Container(
+                                height: 60,
+                                width: MediaQuery.of(context).size.width / 2 + 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(14)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 15.0, left: 30, right: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Write your Comment',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        size: 20,
+                                      ),
+                                    ],
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_sharp,
-                                    size: 20,
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                            SizedBox(height: 15,),
+                            Text(
+                              widget.poll.pollid,
+                              style: GoogleFonts.kodeMono(
+                                textStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black
+                                )
+                              ),
+                            )
+                          ],
                         ),
                       ],
                       if (widget.poll.type == "yn") ...[
-                        InkWell(
-                          onTap: () {
-                            final args =
-                                ScreenArguments(poll: widget.poll, user: user);
-                            Navigator.of(context).pushNamed(
-                                PollDetailScreen.routeName,
-                                arguments: args);
-                          },
-                          child: Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 + 40,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.6),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(14)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0, bottom: 15.0, left: 30, right: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Choose Yes or No',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                final args =
+                                    ScreenArguments(poll: widget.poll, user: user);
+                                Navigator.of(context).pushNamed(
+                                    PollDetailScreen.routeName,
+                                    arguments: args);
+                              },
+                              child: Container(
+                                height: 60,
+                                width: MediaQuery.of(context).size.width / 2 + 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(14)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 15.0, left: 30, right: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Choose Yes or No',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        size: 20,
+                                      ),
+                                    ],
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_sharp,
-                                    size: 20,
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                            SizedBox(height: 15,),
+                            Text(
+                              widget.poll.pollid,
+                              style: GoogleFonts.kodeMono(
+                                textStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black
+                                )
+                              ),
+                            )
+                          ],
                         ),
                       ],
                       if (widget.poll.type == "Selection") ...[
-                        InkWell(
-                          onTap: () {
-                            final args =
-                                ScreenArguments(poll: widget.poll, user: user);
-                            Navigator.of(context).pushNamed(
-                                PollDetailScreen.routeName,
-                                arguments: args);
-                          },
-                          child: Container(
-                            height: 60,
-                            width: MediaQuery.of(context).size.width / 2 + 40,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.6),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(14)),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 15.0, bottom: 15.0, left: 30, right: 10),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'Pick An Option',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                    ),
+                        Column(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                final args =
+                                    ScreenArguments(poll: widget.poll, user: user);
+                                Navigator.of(context).pushNamed(
+                                    PollDetailScreen.routeName,
+                                    arguments: args);
+                              },
+                              child: Container(
+                                height: 60,
+                                width: MediaQuery.of(context).size.width / 2 + 40,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.6),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(14)),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, bottom: 15.0, left: 30, right: 10),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        'Pick An Option',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_forward_ios_sharp,
+                                        size: 20,
+                                      ),
+                                    ],
                                   ),
-                                  Icon(
-                                    Icons.arrow_forward_ios_sharp,
-                                    size: 20,
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
-                          ),
+                            SizedBox(height: 15,),
+                            Text(
+                              widget.poll.pollid,
+                              style: GoogleFonts.kodeMono(
+                                textStyle: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black
+                                )
+                              ),
+                            )
+                          ],
                         ),
                       ],
                     ],
